@@ -1,0 +1,8 @@
+type Props = {
+
+}
+export const Dashboard = ({}: Props) => {
+    return (
+        <div></div>
+    )
+}
