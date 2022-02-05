@@ -1,4 +1,4 @@
-import { Action } from "../actions/index"
+import { Action, ActionType } from "../actions/index"
 
 export interface MyState {
     items: any;
@@ -12,7 +12,7 @@ export const reducer = (
     action: Action
   ) => {
   switch(action.type){
-    case "RECEIVED": {
+    case ActionType.RECEIVED: {
       state.items = action.payload;
       console.log(state.items)
       return {items: action.payload};

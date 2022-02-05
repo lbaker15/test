@@ -1,4 +1,4 @@
-enum ActionType {
+export enum ActionType {
     GET = 'GET',
     RECEIVED = 'RECEIVED'
 }
