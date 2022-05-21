@@ -3,18 +3,24 @@ import { Dispatch } from 'redux';
 import { addData, getData }from '../actions/index';
 import { useEffect } from 'react';
 import { RootState } from '../store';
+import Time from './organisms/time';
+import Metrics from './organisms/metrics';
 
 type Props = {
     reducer: {items: object[]}
 }
 const Dashboard = ({reducer}: Props) => {
     let dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(addData([{'key': 'value'}, {}]))
+
     }, [dispatch])
-    console.log(reducer)
+
     return (
-        <div></div>
+        <div className="flex">
+            <Time />
+            <Metrics />
+        </div>
     )
 }
 

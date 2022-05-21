@@ -1,0 +1,30 @@
+@import './globals';
+.flex {
+    display: flex;
+    width: 100%;
+}
+.loader {
+    font-family: roboto;
+    width: 50%; height: 100vh;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    position: fixed;top: 0; 
+    display: flex; justify-content: center;
+    align-items: center;
+}
+.left {
+    width: 50%;
+    font-family: roboto;
+    height: 100vh;
+}
+.left__epoch {
+
+}
+.left__time {
+
+}
+.right {
+    font-family: roboto;
+    width: 50%;
+    height: 100vh;
+}
