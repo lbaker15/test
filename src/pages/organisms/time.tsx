@@ -6,47 +6,57 @@ import TimeDiff from '../atoms/time-diff';
 const Time = ({ }) => {
     const [now, setNow] = useState<number>(0)
     const [epoch, setEpoch] = useState<number>(0)
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState('')
     useEffect(() => {
         newTime()
     }, [])
-    const newTime = () => {
-        setLoading(true)
-        fetch('http://localhost:3000/time', {
+    const getData = (): Promise<any> => {
+        return fetch('http://localhost:3000/time', {
             headers: {
                 'authorization': 'mysecrettoken'
             }
         })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.error) {
-                    setEpoch(data.epoch)
-                    logTime()
-                    setLoading(false)
-                    setTimeout(() => { newTime() }, 30000)
-                }
-            })
+    }
+    const newTime = async () => {
+        setLoading(true)
+        try {
+            let res = await getData()
+            let data = await res.json();
+            if (!data.error) {
+                setEpoch(data.epoch)
+                logTime()
+                setLoading(false)
+                setTimeout(() => { newTime() }, 30000)
+            } else {
+                setError('Error fetching data')
+            }
+        } catch(err) {
+            setError('Error in fetch')
+        }
     }
     const logTime = () => {
         let now = Date.now() / 1000;
         setNow(now)
         setTimeout(() => { logTime() }, 1000)
     }
-    return (
-        <div>
-            <div className="left">
+    if (error.length < 1) {
+        return (
+            <div>
+                <div className="left">
                     <Fragment>
                         <RecentEpoch epoch={epoch} loading={loading} />
                         <TimeDiff now={now} epoch={epoch} loading={loading} />
                     </Fragment>
-                    {loading && 
-                    <Loader left={true} />
+                    {loading &&
+                        <Loader left={true} />
                     }
+                </div>
             </div>
-
-
-        </div>
-    )
+        )
+    } else {
+        return <div className="left">{error}</div>
+    }
 }
 
 export default Time;

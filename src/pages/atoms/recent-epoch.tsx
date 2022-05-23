@@ -7,7 +7,7 @@ const RecentEpoch = ({epoch}: Props) => {
     return (
         <div className="left__epoch">
             <h2>Recent time from the server (epoch):</h2> 
-            {epoch && <h4>{epoch}</h4>}
+            {epoch > 0 && <h4 data-testid="epoch">{epoch}</h4>}
         </div>
     )
 }

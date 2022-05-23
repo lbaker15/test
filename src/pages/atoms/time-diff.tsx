@@ -38,9 +38,9 @@ const TimeDiff = ({ now, epoch, loading }: Props) => {
         <div className="left__time">
             <h2>Difference between client time & most recent server epoch:</h2>
             {time.hours && time.mins && time.secs ?
-                <h4>{time.hours} : {time.mins} : {time.secs}</h4>
+                <h4 data-testid="timediff">{time.hours} : {time.mins} : {time.secs}</h4>
                 :
-                <h4>Calculating</h4>
+                <h4 data-testid="calc">Calculating</h4>
             }
         </div>
     )
