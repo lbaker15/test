@@ -3,17 +3,17 @@ import Loader from '../atoms/loader';
 type Obj = {
     text: string, heading: string
 }
-const Metrics = () => {
+const Metrics = ({interval}: any) => {
     const [metrics, setMetrics] = useState<Obj[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const ref = React.useRef(null)
     const [error, setError] = useState('')
     useEffect(() => {
         newMets()
-    }, [])
+    }, [interval])
     const newMets = () => {
         setLoading(true)
-        fetch('http://localhost:3000/metrics', {
+        fetch('https://testing-test-upx.herokuapp.com/metrics', {
             headers: {
                 'authorization': 'mysecrettoken'
             }
@@ -37,7 +37,7 @@ const Metrics = () => {
                         .then(() => {
                             setMetrics(mainArr)
                             setLoading(false)
-                            setTimeout(() => { newMets() }, 30000)
+                            // setTimeout(() => { newMets() }, 30000)
                         })
 
                 } else {
@@ -52,9 +52,9 @@ const Metrics = () => {
                 {loading && <Loader left={false} />}
                 <h2>Most recent metrics</h2>
                 <div ref={ref}>
-                    {metrics.map(item => {
-                        console.log(item)
-                        return <div className="metric-card">
+                    {metrics.map((item, index) => {
+                        // console.log(item)
+                        return <div key={'key' + index} className="metric-card">
                             {item.heading.length > 0 ?
                             <h2>{String(item.heading)}</h2>
                             : <h2>No Title</h2>

@@ -10,7 +10,7 @@ const TimeDiff = ({ now, epoch, loading }: Props) => {
     const [time, setTime] = useState<Time>({ secs: null, mins: null, hours: null })
     useEffect(() => {
         if (!loading && epoch > 0 && now > 0) {
-            let timediff = now - epoch;
+            let timediff = Math.round(now) - epoch;
             let seconds = Math.round(timediff);
             let mins = seconds / 60
             let hours = mins / 60
@@ -34,6 +34,7 @@ const TimeDiff = ({ now, epoch, loading }: Props) => {
             }
         }
     }, [now, epoch])
+    console.log('epoch', epoch, now)
     return (
         <div className="left__time">
             <h2>Difference between client time & most recent server epoch:</h2>
