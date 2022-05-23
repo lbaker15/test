@@ -19,8 +19,8 @@ const Time = ({ setInterval }: any) => {
         })
     }
     const newTime = async () => {
-        console.log('new time')
         setLoading(true)
+        setInterval(Date.now())
         try {
             getData()
                 .then(res => res.json())
@@ -28,7 +28,6 @@ const Time = ({ setInterval }: any) => {
                     if (!data.error) {
                         setEpoch(data.epoch)
                         logTime()
-                        setInterval(Date.now())
                         setLoading(false)
                         setTimeout(() => { console.log('timeout'); newTime() }, 30000)
                     } else {
