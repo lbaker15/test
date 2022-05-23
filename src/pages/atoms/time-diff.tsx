@@ -9,15 +9,16 @@ type Time = {
 const TimeDiff = ({ now, epoch, loading }: Props) => {
     const [time, setTime] = useState<Time>({ secs: null, mins: null, hours: null })
     useEffect(() => {
+        // console.log('epoch', Math.ceil(now), epoch,  Math.ceil(now) - epoch)
         if (!loading && epoch > 0 && now > 0) {
-            let timediff = Math.round(now) - epoch;
-            let seconds = Math.round(timediff);
+            let timediff = Math.ceil(now) - epoch;
+            let seconds = timediff;
             let mins = seconds / 60
             let hours = mins / 60
             let converted_secs = seconds - Math.floor(mins) * 60;
             let converted_mins = mins - Math.floor(hours) * 60;
             if (mins < 1) {
-                let s = (seconds < 10) ? `0${seconds}` : seconds;
+                let s = (seconds < 0) ? '00' : (seconds < 10) ? `0${seconds}` : seconds;
                 let m = '00';
                 let h = '00';
                 setTime({ secs: String(s), mins: String(m), hours: String(h) })
@@ -34,7 +35,7 @@ const TimeDiff = ({ now, epoch, loading }: Props) => {
             }
         }
     }, [now, epoch])
-    console.log('epoch', epoch, now)
+
     return (
         <div className="left__time">
             <h2>Difference between client time & most recent server epoch:</h2>
